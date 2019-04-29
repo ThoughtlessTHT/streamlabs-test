@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div id="wrapper">
+        <div id="container">
+            <iframe
+                    src="https://player.twitch.tv/?channel={{ app.user.streamerName }}"
+                    height="480"
+                    width="854"
+                    frameborder="0">
+            </iframe>
+            <iframe id="{{ app.user.streamerName }}"
+                    src="https://www.twitch.tv/embed/{{ app.user.streamerName }}/chat"
+                    height="480"
+                    width="400"
+                    frameborder="0">
+            </iframe>
+        </div>
+        <div id="events"></div>
+    </div>
+{% endblock %}
+
+{% block stylesheets %}
+    <style>
+        body {
+            background: #F5F5F5;
+            font: 18px/1.5 sans-serif;
+        }
+
+        #container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2em;
+        }
+
+        #events {
+            padding: 0 2em;
+        }
+    </style>
+{% endblock %}
+{% block javascripts %}
+    <script>
+        const socketURL = '{{ websocket_url }}';
+        const streamer = '{{ app.user.streamer }}';
+        const streamerName = '{{ app.user.streamerName }}';
+    </script>
+    <script src="https://player.twitch.tv/js/embed/v1.js"></script>
+    <script src="{{ asset('js/socket.io.js') }}"></script>
+    <script src="{{ asset('js/app.js') }}"></script>
+{% endblock %}
